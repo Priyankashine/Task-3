@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Random Colour Generator</title>
+    <style>
+        body {
+            text-align: center;
+            margin-top: 100px;
+            font-family: Arial, sans-serif;
+            transition: background-color 0.4s ease;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 8px;
+            background-color: #0c0c0c;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <button id="generateBtn">Generate Random Colour</button>
+    </main>
+
+    <script>
+        const button = document.getElementById("generateBtn");
+
+        function randomColour() {
+            const randomColor = Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+            const hexColor = `#${randomColor}`;
+            document.body.style.backgroundColor = hexColor;
+            
+            // Adjust text color based on brightness for better contrast
+            const r = parseInt(randomColor.substr(0, 2), 16);
+            const g = parseInt(randomColor.substr(2, 2), 16);
+            const b = parseInt(randomColor.substr(4, 2), 16);
+            const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+            document.body.style.color = brightness > 125 ? "#000" : "#fff";
+        }
+
+        button.addEventListener("click", randomColour);
+    </script>
+</body>
+</html>
+

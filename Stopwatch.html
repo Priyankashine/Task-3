@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        #timer {
+            font-size: 3rem;
+            margin-top: 20px;
+            color: #333;
+        }
+        input, button {
+            font-size: 1rem;
+            padding: 10px;
+            margin: 10px 5px;
+            width: 200px;
+            border-radius: 5px;
+        }
+        input {
+            border: 2px solid #ccc;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .completed {
+            color: red;
+        }
+        .error {
+            color: red;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Timer</h1>
+    <div>
+        <label for="duration">Enter duration (in minutes): </label>
+        <input type="number" id="duration" min="1" placeholder="Minutes">
+        <button id="startBtn" onclick="startTimer()">Start Timer</button>
+        <button id="resetBtn" onclick="resetTimer()" style="display: none;">Reset Timer</button>
+    </div>
+    <div id="timer">00:00:00</div>
+    <div id="errorMessage" class="error" style="display: none;"></div>
+
+    <script>
+        let timerInterval;
+
+        function startTimer() {
+            const durationInput = document.getElementById('duration');
+            const duration = parseInt(durationInput.value);
+            const startButton = document.getElementById('startBtn');
+            const resetButton = document.getElementById('resetBtn');
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Clear any previous error message
+            errorMessage.style.display = 'none';
+
+            if (isNaN(duration) || duration <= 0) {
+                errorMessage.textContent = 'Please enter a valid duration in minutes.';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            // Disable input and start button while timer is running
+            durationInput.disabled = true;
+            startButton.disabled = true;
+            resetButton.style.display = 'inline-block';
+
+            clearInterval(timerInterval); // Clear any existing timer
+            let totalSeconds = duration * 60;
+
+            function updateTimerDisplay() {
+                const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+                const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+                const seconds = String(totalSeconds % 60).padStart(2, '0');
+                document.getElementById('timer').textContent = `${hours}:${minutes}:${seconds}`;
+            }
+
+            updateTimerDisplay(); // Update immediately
+            timerInterval = setInterval(() => {
+                totalSeconds--;
+                updateTimerDisplay();
+
+                if (totalSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById('timer').classList.add('completed');
+                    alert('Time is up!');
+                }
+            }, 1000);
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval); // Clear any existing timer
+            document.getElementById('timer').textContent = '00:00:00';
+            document.getElementById('timer').classList.remove('completed');
+
+            // Enable input and start button, and hide reset button
+            document.getElementById('duration').disabled = false;
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('resetBtn').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

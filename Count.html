@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Counter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+            background: linear-gradient(135deg, #f6d991 0%, #f80032 100%);
+            height: 100vh;
+           
+        }
+        h1 {
+        font-size: 3rem;
+        color: #0a0a0a;
+        margin-bottom: 10px;
+    }
+
+    p {
+        font-size: 1.2rem;
+        color: #555;
+        margin: 5px 0;
+    }
+
+    #number {
+        font-size: 4rem;
+        margin: 20px 0;
+        color: #333;
+    }
+
+        #number {
+            font-size: 4rem;
+            margin: 20px 0;
+            color: #333;
+        }
+
+        button {
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+    <h1>Counter</h1>
+    <p>Click the buttons to change the number:</p>
+    <p>Increment: +</p>
+    <p>Decrement: -</p>
+    <p>Reset: 0</p>
+  
+     <p id="number">0</p>
+
+    <button onclick="incrementCounter()">+</button>
+    <button onclick="decrementCounter()">-</button>
+    <button onclick="resetCounter()">Reset</button>
+
+    <script>
+        let count = 0;
+
+        function incrementCounter() {
+            count++;
+            document.getElementById("number").textContent = count;
+        }
+
+        function decrementCounter() {
+            count--;
+            document.getElementById("number").textContent = count;
+        }
+
+        function resetCounter() {
+            count = 0;
+            document.getElementById("number").textContent = count;
+        }
+    </script>
+</body>
+</html>

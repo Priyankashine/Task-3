@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        input {
+            padding: 10px;
+            font-size: 1rem;
+            width: 200px;
+            margin-bottom: 10px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #333;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Temperature Converter</h1>
+    <p>Enter a temperature in Celsius and click "Convert" to get the temperature in Fahrenheit.</p>
+    <input type="text" id="tempInput" placeholder="Enter temperature in Celsius">
+    <button onclick="convertTemp()">Convert</button>
+
+    <div id="result"></div>
+
+    <script>
+        function convertTemp() {
+            const tempInput = document.getElementById("tempInput").value;
+            const resultDiv = document.getElementById("result");
+            
+            // Clear previous result
+            resultDiv.textContent = "";
+
+            // Check if input is valid
+            if (isNaN(tempInput) || tempInput === "") {
+                resultDiv.textContent = "Please enter a valid number.";
+                resultDiv.classList.add("error");
+                return;
+            }
+
+            // Convert the temperature
+            const fahrenheit = (parseFloat(tempInput) * 9/5) + 32;
+
+            // Display the result
+            resultDiv.textContent = `Temperature in Fahrenheit: ${fahrenheit.toFixed(2)}`;
+            resultDiv.classList.remove("error"); // Remove error class if conversion is successful
+        }
+    </script>
+
+</body>
+</html>
